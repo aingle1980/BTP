@@ -1,0 +1,50 @@
+managed implementation in class ZBP_R_ZSALES_ORDER unique;
+strict ( 2 );
+with draft;
+define behavior for ZR_ZSALES_ORDER alias soitem
+persistent table ZZSALES_ORDER
+draft table ZZSALES_ORDER_D
+etag master Locallastchanged
+lock master total etag Lastchanged
+authorization master( global )
+
+{
+  field ( mandatory : create )
+   Salesorder,
+   Salesorderitem;
+
+  field ( readonly )
+   Createdby,
+   Changedby,
+   Locallastchanged,
+   Lastchanged;
+
+  field ( readonly : update )
+   Salesorder,
+   Salesorderitem;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZZSALES_ORDER
+  {
+    Salesorder = salesorder;
+    Salesorderitem = salesorderitem;
+    Material = material;
+    Quantity = quantity;
+    Unit = unit;
+    Customer = customer;
+    Createdby = createdby;
+    Changedby = changedby;
+    Locallastchanged = locallastchanged;
+    Lastchanged = lastchanged;
+  }
+}

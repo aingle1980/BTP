@@ -1,0 +1,49 @@
+managed implementation in class ZBP_R_ZSALESHDR unique;
+strict ( 2 );
+with draft;
+define behavior for ZR_ZSALESHDR alias Header
+persistent table ZZSALESHDR
+draft table ZZSALESHDR_D
+etag master Locallastchanged
+lock master total etag Lastchanged
+authorization master( global )
+
+{
+  field ( mandatory : create )
+   Salesorder;
+
+  field ( readonly )
+   Createdby,
+   Changedby,
+   Locallastchanged,
+   Lastchanged;
+
+  field ( readonly : update )
+   Salesorder;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZZSALESHDR
+  {
+    Salesorder = salesorder;
+    Doctype = doctype;
+    Netwr = netwr;
+    Currency = currency;
+    Org = org;
+    Channel = channel;
+    Division = division;
+    Createdby = createdby;
+    Changedby = changedby;
+    Locallastchanged = locallastchanged;
+    Lastchanged = lastchanged;
+  }
+}

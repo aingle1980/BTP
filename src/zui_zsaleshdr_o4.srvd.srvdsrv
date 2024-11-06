@@ -1,0 +1,11 @@
+@EndUserText: {
+  label: 'Service Definition for ZC_ZSALESHDR'
+}
+@ObjectModel: {
+  leadingEntity: {
+    name: 'ZC_ZSALESHDR'
+  }
+}
+define service ZUI_ZSALESHDR_O4 provider contracts odata_v4_ui {
+  expose ZC_ZSALESHDR as Header;
+}
